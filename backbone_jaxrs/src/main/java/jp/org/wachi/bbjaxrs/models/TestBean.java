@@ -2,14 +2,13 @@ package jp.org.wachi.bbjaxrs.models;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="testbean")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TestBean {
-	@XmlAttribute
+	@XmlElement
 	private long id;
 	
 	@XmlElement
