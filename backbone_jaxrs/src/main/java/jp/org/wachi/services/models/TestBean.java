@@ -1,4 +1,4 @@
-package jp.org.wachi.bbjaxrs.models;
+package jp.org.wachi.services.models;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
