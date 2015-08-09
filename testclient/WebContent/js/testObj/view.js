@@ -30,7 +30,6 @@ app.ListView = Backbone.View.extend({
 	refresh: function(){
 		this.collection.fetch({
 			success:function(collection,xhr,option){
-				collection.each(function(item){console.log(item.get('value'))});
 				app.listView.render();
 			}
 		});

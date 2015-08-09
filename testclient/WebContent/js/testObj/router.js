@@ -6,8 +6,7 @@ var app = app || {};
 app.TestObjRouter = Backbone.Router.extend({
 	routes: {
 		'detail/:id': 'showDetail',
-		'newItem': 'showNewItemView',
-		'list':'refreshList'
+		'newItem': 'showNewItemView'
 	},
 	refreshList : function(){
 		app.listView.render();
