@@ -1,15 +1,19 @@
 package jp.org.wachi.util;
 
-import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
+
 public class PersistenceContextProducer {
 
 	@Produces
-	@Dependent
+	@PersistenceUnit(unitName="primary")
+	EntityManagerFactory emf; 
+	
+	@Produces
 	@PersistenceContext(unitName="primary")
-	@UseKazzDB
-	private EntityManager entityManager;
+	EntityManager em;
 		
 }

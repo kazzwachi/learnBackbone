@@ -1,4 +1,4 @@
-package jp.org.wachi.services.resources;
+package jp.org.wachi.testbean;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,26 +16,20 @@ import javax.ws.rs.Produces;
 
 import org.slf4j.Logger;
 
-import jp.org.wachi.services.models.TestBean;
-
 @Path("/testbean")
 public class TestBeanService {
 
 	@Inject
 	Logger logger;
 	
+	@Inject
+	TestBeanRepository repository;
+	
 	private static Map<Long,TestBean> map;
 	private static long lastId = 0L;
 		
 	static{
 		map = new HashMap<>();
-//		for(int i = 0; i < 3; i++){
-//			TestBean testBean = new TestBean();
-//			testBean.setId(++lastId);
-//			testBean.setKey("0000000" + String.valueOf(lastId));
-//			testBean.setValue("VALUE000" + String.valueOf(lastId));
-//			map.put(lastId, testBean);
-//		}
 	}
 	
 	@GET

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -12,12 +13,10 @@ import javax.persistence.criteria.Root;
 
 public abstract class DaoBase<E,K extends Serializable> {
 
-	@Inject
-	@UseKazzDB
+	@PersistenceContext(unitName="primary")
 	private EntityManager entityManager;
 	
 	private Class<E> entityClass;
-
 	
 	public Class<E> getEntityClass() {
 		return entityClass;

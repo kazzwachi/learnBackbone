@@ -3,9 +3,11 @@ package jp.org.wachi.util;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+@RequestScoped
 @Transactional
 public abstract class RepositoryBase<E, K extends Serializable> {
 
