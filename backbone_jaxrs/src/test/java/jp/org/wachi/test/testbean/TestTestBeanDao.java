@@ -9,17 +9,40 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+
+import jp.org.wachi.testbean.TestBean;
+import jp.org.wachi.testbean.TestBeanDao;
 
 @RunWith(Arquillian.class)
 public class TestTestBeanDao {
+	
+	@Inject
+	TestBeanDao dao;
+	
+	@Inject
+	Logger logger;
 	
 	@Deployment
 	public static WebArchive createDeployment() {
 		return TestHelper.createDeployment();
 	}
 
-	@Test(timeout = 20000)
-	public void should_exists_eao() {
-		fail("Not implemented");
+	@Test
+	public void should_exists_dao() {
+		assertNotNull(dao);
+	}
+	@Test
+	public void should_exists_logger(){
+		assertNotNull(logger);
+	}
+	@Test
+	public void should_dao_has_entityClass_correctry(){
+		assertNotNull(dao.getEntityClass());
+		assertEquals(dao.getEntityClass(), TestBean.class);
+	}
+	@Test
+	public void should_dao_has_entityManager_correctry(){
+		assertNotNull(dao.getEntityManager());
 	}
 }

@@ -1,7 +1,9 @@
 package jp.org.wachi.testbean;
 
-import jp.org.wachi.util.DaoBase;
+import javax.enterprise.context.Dependent;
 
+import jp.org.wachi.util.DaoBase;
+@Dependent
 public class TestBeanDao extends DaoBase<TestBean, Long> {
 
 }

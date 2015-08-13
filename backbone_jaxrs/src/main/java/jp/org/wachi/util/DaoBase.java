@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -13,16 +12,16 @@ import javax.persistence.criteria.Root;
 
 public abstract class DaoBase<E,K extends Serializable> {
 
-	@PersistenceContext(unitName="primary")
+	@Inject
 	private EntityManager entityManager;
-	
+
+	@Inject
 	private Class<E> entityClass;
-	
+
 	public Class<E> getEntityClass() {
 		return entityClass;
 	}
 
-	@Inject
 	public void setEntityClass(Class<E> entityClass) {
 		this.entityClass = entityClass;
 	}
@@ -34,7 +33,7 @@ public abstract class DaoBase<E,K extends Serializable> {
 	public void setEntityManager(EntityManager entityManager){
 		this.entityManager = entityManager;
 	}
-	
+
 	public void create(E entity) {
 		entityManager.persist(entity);
 	}

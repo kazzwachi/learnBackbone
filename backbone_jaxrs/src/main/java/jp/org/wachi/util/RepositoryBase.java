@@ -3,21 +3,19 @@ package jp.org.wachi.util;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-@RequestScoped
 @Transactional
 public abstract class RepositoryBase<E, K extends Serializable> {
 
+	@Inject
 	private DaoBase<E, K> dao;
 
 	public DaoBase<E, K> getDao() {
 		return dao;
 	}
 	
-	@Inject
 	protected void setDao(DaoBase<E, K> dao) {
 		this.dao = dao;
 	}

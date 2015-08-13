@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,10 +20,7 @@ public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	TestBeanDao dao;
-
-	@PersistenceContext(unitName="primary")
-	EntityManager entityManager;
+	TestBeanRepository repository;
 	
 	@Inject
 	Logger logger;
@@ -43,19 +38,19 @@ public class TestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		if(null == dao){
+		if(null == repository){
+			logger.info("repository is null");
+			out.println("repository is nulll");
+		}else{
+			logger.info("repository is not null");
+			out.println("repository is not nulll");
+		}
+		if(null == repository.getDao()){
 			logger.info("dao is null");
 			out.println("dao is null");
 		}else{
 			logger.info("dao is not null");
 			out.println("dao is not null");
-		}
-		if(null == entityManager){
-			logger.info("entityManager is null");
-			out.println("entityManager is null");
-		}else{
-			logger.info("entityManager is not null");
-			out.println("entityManager is not null");
 		}
 	}
 
