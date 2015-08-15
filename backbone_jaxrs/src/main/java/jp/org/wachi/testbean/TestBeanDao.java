@@ -6,4 +6,5 @@ import jp.org.wachi.util.DaoBase;
 @Dependent
 public class TestBeanDao extends DaoBase<TestBean, Long> {
 
+	
 }

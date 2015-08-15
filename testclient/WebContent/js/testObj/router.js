@@ -8,9 +8,6 @@ app.TestObjRouter = Backbone.Router.extend({
 		'detail/:id': 'showDetail',
 		'newItem': 'showNewItemView'
 	},
-	refreshList : function(){
-		app.listView.render();
-	},
 	showDetail : function(id){
 		if(app.itemView){
 			app.itemView.close();

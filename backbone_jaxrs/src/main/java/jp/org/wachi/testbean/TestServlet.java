@@ -52,6 +52,17 @@ public class TestServlet extends HttpServlet {
 			logger.info("dao is not null");
 			out.println("dao is not null");
 		}
+		if(null == repository.getDao().getEntityClass()){
+			logger.info("entityClass is null");
+			out.println("entityClass is null");
+		}else{
+			logger.info("entityClass is not null");
+			out.println("entityClass is not null");
+		}
+		TestBean testBean = new TestBean();
+		testBean.setKey("99999999");
+		testBean.setValue("Value9999");
+		repository.create(testBean);
 	}
 
 	/**

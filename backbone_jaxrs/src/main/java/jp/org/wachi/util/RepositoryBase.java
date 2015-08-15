@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
-@Transactional
 public abstract class RepositoryBase<E, K extends Serializable> {
 
+	@SuppressWarnings("cdi-ambiguous-dependency")
 	@Inject
 	private DaoBase<E, K> dao;
 
@@ -63,5 +62,9 @@ public abstract class RepositoryBase<E, K extends Serializable> {
 	
 	public List<E> list(String sortBy,int offset,int count){
 		return dao.list(sortBy,offset, count);
+	}
+	
+	public List<E> findBy(String keyName,Object keyValue){
+		return dao.findBy(keyName, keyValue);
 	}
 }

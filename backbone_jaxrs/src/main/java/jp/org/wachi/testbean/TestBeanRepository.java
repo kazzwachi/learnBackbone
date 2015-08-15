@@ -1,10 +1,10 @@
 package jp.org.wachi.testbean;
 
-import javax.enterprise.context.Dependent;
+import javax.ejb.Stateless;
 
 import jp.org.wachi.util.RepositoryBase;
 
-@Dependent
+@Stateless
 public class TestBeanRepository extends RepositoryBase<TestBean, Long> {
 
 	@Override

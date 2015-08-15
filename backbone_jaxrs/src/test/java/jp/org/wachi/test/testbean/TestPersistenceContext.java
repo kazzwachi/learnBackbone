@@ -1,6 +1,7 @@
 package jp.org.wachi.test.testbean;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
 
@@ -15,7 +16,7 @@ import jp.org.wachi.testbean.TestBean;
 import jp.org.wachi.testbean.TestBeanDao;
 
 @RunWith(Arquillian.class)
-public class TestTestBeanDao {
+public class TestPersistenceContext {
 	
 	@Inject
 	TestBeanDao dao;
@@ -27,7 +28,7 @@ public class TestTestBeanDao {
 	public static WebArchive createDeployment() {
 		return TestHelper.createDeployment();
 	}
-
+	
 	@Test
 	public void should_exists_dao() {
 		assertNotNull(dao);
@@ -40,9 +41,11 @@ public class TestTestBeanDao {
 	public void should_dao_has_entityClass_correctry(){
 		assertNotNull(dao.getEntityClass());
 		assertEquals(dao.getEntityClass(), TestBean.class);
+		logger.info(dao.getEntityClass().toString());
 	}
 	@Test
 	public void should_dao_has_entityManager_correctry(){
 		assertNotNull(dao.getEntityManager());
+		logger.info(dao.getEntityManager().getEntityManagerFactory().toString());
 	}
 }

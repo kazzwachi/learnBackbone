@@ -1,8 +1,6 @@
 package jp.org.wachi.testbean;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -25,38 +23,24 @@ public class TestBeanService {
 	@Inject
 	TestBeanRepository repository;
 	
-	private static Map<Long,TestBean> map;
-	private static long lastId = 0L;
-		
-	static{
-		map = new HashMap<>();
-	}
-	
 	@GET
 	@Produces("application/json")
 	@Path("{id}")
 	public TestBean read(@PathParam("id") Long id){
-		TestBean testBean = TestBeanService.map.get(id);
-		logger.info("read method start.");
-		logger.info("returns bean value:"+testBean.getValue());
-		return testBean;
+		return repository.read(id);
 	}
 	
 	@GET
 	@Produces("application/json")
 	public Collection<TestBean> readBeans(){
-		return TestBeanService.map.values();
+		return repository.list("id", 0, 999);
 	}
 	
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
 	public TestBean create(TestBean testBean){
-		logger.info("create method start.");
-		TestBeanService.lastId++;
-		testBean.setId(TestBeanService.lastId);
-		TestBeanService.map.put(TestBeanService.lastId, testBean);
-		logger.info("new bean added value:" + testBean.getValue());
+		repository.create(testBean);
 		return testBean;
 	}
 	
@@ -65,16 +49,12 @@ public class TestBeanService {
 	@Produces("application/json")
 	@Path("{id}")
 	public void update(TestBean testBean){
-		logger.info("update method start.");
-		TestBeanService.map.put(testBean.getId(), testBean);
-		logger.info("test bean updated value:" + testBean.getValue());
+		repository.update(testBean);
 	}
 	
 	@DELETE
 	@Path("{id}")
 	public void delete(@PathParam("id") Long id){
-		logger.info("delete method start.");
-		TestBeanService.map.remove(id);
-		logger.info("test bean deleted id:" + id);
+		repository.delete(id);
 	}
 }

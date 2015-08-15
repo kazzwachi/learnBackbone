@@ -12,6 +12,7 @@ app.ListView = Backbone.View.extend({
 	initialize: function(options){
 		_.bindAll(this,'render','close','refresh');
 		this.listenTo(this.collection,'change',this.render);
+		this.listenTo(this.collection,'remove',this.render);
 	},
 	render: function(){
 		$(this.el).find('.itemTable').html('');
@@ -47,17 +48,20 @@ app.LineView = Backbone.View.extend({
 app.ItemView = Backbone.View.extend({
 	events:{
 		'click .edit'  :'showEditView',
-		'click .cancel':'editCancel',
+		'click .cancel':'clearView',
 		'click .delete':'deleteItem',
 		'click .save'  :'saveItem'
 	},
 	initialize: function(){
-		_.bindAll(this,'render','showEditView','editCancel','showDispView','deleteItem','saveItem','close');
+		_.bindAll(this,'render','showEditView','clearView','showDispView','deleteItem','saveItem','close');
 		this.template = app.editViewTemplate;
 		this.listenTo(this.model,'sync',this.showDispView);
+		this.listenTo(this.model,'destroy',this.clearView);
 	},
 	render: function(){
-		$(this.el).html(this.template(this.model.attributes));
+		if(null !== this.model){
+			$(this.el).html(this.template(this.model.attributes));			
+		}
 		return this;
 	},
 	showEditView: function(){
@@ -68,26 +72,22 @@ app.ItemView = Backbone.View.extend({
 		this.template = app.dispViewTemplate;
 		this.render();
 	},
-	editCancel: function(){
+	clearView: function(){
 		this.model = null;
 		$(this.el).html('');
 		app.router.navigate('');
 	},
 	deleteItem: function(){
+		app.items.remove(this.model);
 		this.model.destroy();
-		$(this.el).html('');
-		app.router.navigate('');
 	},
 	saveItem: function(){
 		this.model.set('key',$('input.key').val());
 		this.model.set('value',$('input.value').val());
+		this.model.save();
 		if(null === this.model.get('id')){
-			this.model.save();
 			app.items.add(this.model);
-		}else{
-			this.model.save();
 		}
-		app.router.navigate('');
 	},
 	close: function(){
 		this.stopListening(this.model);

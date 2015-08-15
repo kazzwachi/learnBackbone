@@ -11,4 +11,5 @@ public interface Repository<E,K extends Serializable> {
 	public void delete(E entity);
 	public void delete(K id);
 	public List<E> list(String sortBy,int offset,int count);
+	public List<E> findBy(String keyName,Object keyValue);
 }
